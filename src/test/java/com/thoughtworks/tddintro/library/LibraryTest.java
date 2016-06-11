@@ -23,7 +23,6 @@ public class LibraryTest {
 
      */
     private List<String> books;
-    private String title;
     private PrintStream printStream;
     private DateTimeFormatter dateTimeFormatter;
     private Library library;
@@ -39,7 +38,7 @@ public class LibraryTest {
     @Test
     public void shouldPrintBookTitleWhenThereIsOneBook() {
 
-        title = "Book Title";
+        String title = "Book Title";
         books.add(title);
         library = new Library(books, printStream, dateTimeFormatter);
 
@@ -59,7 +58,14 @@ public class LibraryTest {
 
     @Test
     public void shouldPrintBothBookTitlesWhenThereAreTwoBooks() throws IOException {
-        // implement me
+
+        books.add("Book1");
+        books.add("Book2");
+        library = new Library(books, printStream, dateTimeFormatter);
+
+        library.listBooks();
+        verify(printStream).println("Book1");
+        verify(printStream).println("Book2");
     }
 
     /*
@@ -72,7 +78,6 @@ public class LibraryTest {
     // This one is done for you
     @Test
     public void shouldWelcomeUser() {
-        List<String> books = new ArrayList<>();
         PrintStream printStream = mock(PrintStream.class);
         DateTimeFormatter dateTimeFormatter = mock(DateTimeFormatter.class);
         Library library = new Library(books, printStream, dateTimeFormatter);
