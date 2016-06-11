@@ -12,10 +12,18 @@ public class Account {
     }
 
     public int deposit(int i) {
-        return balance+i;
+        balance+=i;
+        return balance;
     }
 
     public int withdraw(int i) {
-        return this.balance-i;
+
+        if(i > balance)
+            return balance;
+        else{
+            balance-=i;
+            return balance;
+        }
+
     }
 }
