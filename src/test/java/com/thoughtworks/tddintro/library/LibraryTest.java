@@ -2,6 +2,7 @@ package com.thoughtworks.tddintro.library;
 
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormatter;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.io.BufferedReader;
@@ -23,27 +24,39 @@ public class LibraryTest {
         List books tests. Implement the first three tests for the Verify exercise
 
      */
+    private List<String> books;
+    private String title;
+    private PrintStream printStream;
+    private DateTimeFormatter dateTimeFormatter;
+    private Library library;
+
+    @Before
+    public void setUp() throws Exception {
+        books = new ArrayList<>();
+        printStream = mock(PrintStream.class);
+        dateTimeFormatter = mock(DateTimeFormatter.class);
+    }
 
 
     @Test
     public void shouldPrintBookTitleWhenThereIsOneBook() {
 
-        List<String> books = new ArrayList<>();
-        String title = "Book Title";
+        title = "Book Title";
         books.add(title);
-        PrintStream printStream = mock(PrintStream.class);
-        DateTimeFormatter dateTimeFormatter = mock(DateTimeFormatter.class);
-        Library library = new Library(books, printStream, dateTimeFormatter);
+        library = new Library(books, printStream, dateTimeFormatter);
 
         library.listBooks();
 
         // add a verify statement here that shows that the book title was printed by to the printStream
+        verify(printStream).println("Book Title");
     }
 
     @Test
     public void shouldPrintNothingWhenThereAreNoBooks() {
 
-        // implement me
+        library = new Library(books, printStream, dateTimeFormatter);
+        library.listBooks();
+        verify(printStream).println("");
     }
 
     @Test
